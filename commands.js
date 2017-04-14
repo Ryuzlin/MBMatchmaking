@@ -75,7 +75,7 @@ function reportMatch(arg, msg, client) {
     p1Char = character[game].character.find((element) => { return element.alias.toLocaleLowerCase() === arg[1].slice(-2)})
     p2Char = character[game].character.find((element) => { return element.alias.toLocaleLowerCase() === arg[4].slice(-2)})
 
-    if(config.server[msg.guild.id].type){
+    if(character[game].type > 0){
         p1Type = character[game].type.find((element) => { return element.alias.toLocaleLowerCase() === arg[1].slice(0, 1)})
         p2Type = character[game].type.find((element) => { return element.alias.toLocaleLowerCase() === arg[4].slice(0, 1)})
 
