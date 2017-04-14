@@ -1,0 +1,27 @@
+{
+  "name": "mbmatchmaking",
+  "version": "1.0.0",
+  "description": "Matchmaking bot for Discord",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(git://github.com/Ryuzlin/MBMatchmaking.git)"
+  },
+  "keywords": [
+    "Bot",
+    "Discord",
+    "Matchmaking"
+  ],
+  "author": "Ryuzlin",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.0.0",
+    "elo-rating": "^1.0.1",
+    "package": "^1.0.1",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {}
+}

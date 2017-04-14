@@ -1,0 +1,53 @@
+{
+    "MeltyBlood":
+    {
+        "character": 
+        [
+            {"name":"Aozaki Aoko", "alias":"AO"},
+            {"name":"Tohno Shiki", "alias":"SH"},
+            {"name":"Archtype: Earth (Hime)", "alias":"AE"},
+            {"name":"Nanaya Shiki", "alias":"NA"},
+            {"name":"Kishima Kouma", "alias":"KI"},
+            {"name":"Arima Miyako", "alias":"MI"},
+            {"name":"Ciel", "alias":"CI"},
+            {"name":"Sion Eltnam Atlasia", "alias":"SI"},
+            {"name":"Riesbyfe Stridberg", "alias":"RI"},
+            {"name":"Sion Tatari", "alias":"VS"},
+            {"name":"Walachia", "alias":"WA"},
+            {"name":"Michael Roa Valdamjong", "alias":"RO"},
+            {"name":"Hisui & Kohaku", "alias":"HK"},
+            {"name":"Tohno Akiha", "alias":"AK"},
+            {"name":"Arcueid Brunestud", "alias":"AR"},
+            {"name":"Powerd Ciel", "alias":"PC"},
+            {"name":"Red Arcueid", "alias":"RE"},
+            {"name":"Akiha Vermillion", "alias":"AV"},
+            {"name":"Mech-Hisui", "alias":"ME"},
+            {"name":"Tohno Akiha (Seifuku)", "alias":"AS"},
+            {"name":"Yumizuka Satsuki", "alias":"SA"},
+            {"name":"Len", "alias":"LE"},
+            {"name":"Ryougi Shiki", "alias":"RY"},
+            {"name":"White Len", "alias":"WH"},
+            {"name":"Nrvnqsr Chaos (Nero)", "alias":"NR"},
+            {"name":"Neko Arc Chaos", "alias":"NC"},
+            {"name":"Koha & Mech", "alias":"KM"},
+            {"name":"Hisui", "alias":"HI"},
+            {"name":"Neko Arc", "alias":"NE"},
+            {"name":"Kohaku", "alias":"KO"},
+            {"name":"Neko & Mech", "alias":"NM"}
+        ],
+        "type":[
+            {"name": "Crescent Moon", "alias": "C"},
+            {"name": "Half Moon", "alias": "H"},
+            {"name": "Full Moon", "alias": "F"}
+        ]
+    },
+    "StreetFighterV":
+    {
+        "character":
+        [
+            {"name": "Ryu", "alias":"RY"},
+            {"name": "Ken", "alias":"KE"}
+        ],
+        "type":[]
+    }
+}
