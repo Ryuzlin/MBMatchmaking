@@ -75,7 +75,7 @@ function reportMatch(arg, msg, client) {
     p1Char = character[game].character.find((element) => { return element.alias.toLocaleLowerCase() === arg[1].slice(-2)})
     p2Char = character[game].character.find((element) => { return element.alias.toLocaleLowerCase() === arg[4].slice(-2)})
 
-    if(character[game].type > 0){
+    if(character[game].type.length > 0){
         p1Type = character[game].type.find((element) => { return element.alias.toLocaleLowerCase() === arg[1].slice(0, 1)})
         p2Type = character[game].type.find((element) => { return element.alias.toLocaleLowerCase() === arg[4].slice(0, 1)})
 
@@ -309,8 +309,8 @@ function ranking(arg, msg, client) {
             playerNick = client.users.get(eloLine.discordID).username;
 
             rankingString += rankPosition + " - " + playerNick + " - ";
-
-            if(character[game].type > 0) {
+            console.log(character[game].type.length);
+            if(character[game].type.length > 0) {
                 rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
             }
             rankingString += character[game].character.find((element) => { return element.alias === eloLine.character}).name  + " (" + eloLine.points + ")\n";
@@ -367,7 +367,7 @@ function myPoints(arg, msg, client) {
             if(client.users.get(eloLine.discordID).id === msg.author.id) {
                 rankingString += rankPosition + " - " + playerNick + " - ";
 
-                if(character[game].type > 0) {
+                if(character[game].type.length > 0) {
                     rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
                 }
                 rankingString += character[game].character.find((element) => { return element.alias === eloLine.character}).name  + " (" + eloLine.points + ")\n";
