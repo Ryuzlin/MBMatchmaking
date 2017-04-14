@@ -1,5 +1,6 @@
 const util = require('util');
 const config = require('./config/config');
+const character = require('./config/character');
 const commands = require('./commands');
 
 module.exports = {
@@ -24,8 +25,14 @@ function showSpam(arg, msg, client) {
 
 function test(arg, msg, client) {
     if(!hasPermission(msg.author.id)) return;
+    console.log(character["StreetFighterV"].type.length);
 
-    msg.author.send(`teste`);
+    if(character["StreetFighterV"].type.length > 0) {
+        msg.author.send(`Sim`);
+    } else {
+        msg.author.send(`Não`);
+    }
+    
 }
 
 function hasPermission(authorID) {

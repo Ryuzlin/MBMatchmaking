@@ -132,7 +132,7 @@ function confirm (arg, msg, client) {
 
     if(isSpam(msg)) return;
 
-    if (index != -1)  confirmedResult = temp.splice(index, 1);
+    if (index != -1) confirmedResult = temp.splice(index, 1);
     else {
         msg.reply("Report não encontrado.");
         return;
@@ -310,7 +310,7 @@ function ranking(arg, msg, client) {
 
             rankingString += rankPosition + " - " + playerNick + " - ";
 
-            if(config.server[msg.guild.id].type) {
+            if(character[game].type > 0) {
                 rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
             }
             rankingString += character[game].character.find((element) => { return element.alias === eloLine.character}).name  + " (" + eloLine.points + ")\n";
@@ -367,7 +367,7 @@ function myPoints(arg, msg, client) {
             if(client.users.get(eloLine.discordID).id === msg.author.id) {
                 rankingString += rankPosition + " - " + playerNick + " - ";
 
-                if(config.server[msg.guild.id].type) {
+                if(character[game].type > 0) {
                     rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
                 }
                 rankingString += character[game].character.find((element) => { return element.alias === eloLine.character}).name  + " (" + eloLine.points + ")\n";
