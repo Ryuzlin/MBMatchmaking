@@ -53,7 +53,6 @@ function reportMatch(arg, msg, client) {
     }
 
     p2 = client.users.get(arg[3].replace(/[^0-9]/g, ''));
-    console.log(p2);
     if(typeof p2 === 'undefined') {
         error = true;
         errorMsg += "Erro: Player não é válido.\n";
@@ -157,12 +156,12 @@ function confirm (arg, msg, client) {
             ranking = [];
         }
 
-        console.log(util.inspect(ranking));
+        //console.log(util.inspect(ranking));
 
         p1Index = ranking.findIndex((elo) => { return elo.discordID === confirmedResult[0].p1 && elo.character === confirmedResult[0].p1Character && elo.type === confirmedResult[0].p1Type});
         p2Index = ranking.findIndex((elo) => { return elo.discordID === confirmedResult[0].p2 && elo.character === confirmedResult[0].p2Character && elo.type === confirmedResult[0].p2Type});
 
-        console.log("p1Index: " + p1Index + "\np2Index: " + p2Index);
+        //console.log("p1Index: " + p1Index + "\np2Index: " + p2Index);
 
         if(p1Index == -1) {
             p1Index = ranking.push({
@@ -205,24 +204,38 @@ function confirm (arg, msg, client) {
                 confirmedResult[0].p1Victory -= p1v;
                 confirmedResult[0].p2Victory -= p2v;
             }
-            //if((confirmedResult[0].p1Victory > 0 && (i%2) > 0) || confirmedResult[0].p2Victory == 0) {
-            if(p1v > 0) {
-                let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, true, config.server[msg.guild.id].rankedCalculator);
-                ranking[p1Index].points = eloCalc.playerRating;
-                ranking[p2Index].points = eloCalc.opponentRating;
-                //confirmedResult[0].p1Victory -= 1;
-                p1v -= 1;
+            if(p1v > p2v || p1v === p2v) {
+                if(p1v > 0) {
+                    let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, true, config.server[msg.guild.id].rankedCalculator);
+                    ranking[p1Index].points = eloCalc.playerRating;
+                    ranking[p2Index].points = eloCalc.opponentRating;
+                    p1v -= 1;
 
-                console.log("Player 1 Ganhou");
-            //} else if(confirmedResult[0].p2Victory > 0) {
-            } else if(p2v > 0) {
-                let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, false, config.server[msg.guild.id].rankedCalculator);
-                ranking[p1Index].points = eloCalc.playerRating;
-                ranking[p2Index].points = eloCalc.opponentRating;
-                //confirmedResult[0].p2Victory -= 1;
-                p2v -= 1;
+                    console.log("Player 1 Ganhou");
+                } else if(p2v > 0) {
+                    let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, false, config.server[msg.guild.id].rankedCalculator);
+                    ranking[p1Index].points = eloCalc.playerRating;
+                    ranking[p2Index].points = eloCalc.opponentRating;
+                    p2v -= 1;
 
-                console.log("Player 2 Ganhou");
+                    console.log("Player 2 Ganhou");
+                }
+            } else {
+                if(p2v > 0) {
+                    let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, false, config.server[msg.guild.id].rankedCalculator);
+                    ranking[p1Index].points = eloCalc.playerRating;
+                    ranking[p2Index].points = eloCalc.opponentRating;
+                    p2v -= 1;
+
+                    console.log("Player 2 Ganhou");
+                } else if(p1v > 0) {
+                    let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, true, config.server[msg.guild.id].rankedCalculator);
+                    ranking[p1Index].points = eloCalc.playerRating;
+                    ranking[p2Index].points = eloCalc.opponentRating;
+                    p1v -= 1;
+
+                    console.log("Player 1 Ganhou");
+                }
             }
 
             if(ranking[p1Index].points < 0) ranking[p1Index].points = 0;
@@ -309,7 +322,6 @@ function ranking(arg, msg, client) {
             playerNick = client.users.get(eloLine.discordID).username;
 
             rankingString += rankPosition + " - " + playerNick + " - ";
-            console.log(character[game].type.length);
             if(character[game].type.length > 0) {
                 rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
             }
