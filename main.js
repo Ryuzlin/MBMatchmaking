@@ -50,4 +50,8 @@ client.on('message', msg => {
 	}
 });
 
-client.login(config.loginKey);
+if(config.loginkey === 'YourBotKeyHere') {
+	client.login(process.env.botkey);
+} else {
+	client.login(config.loginKey);
+}
