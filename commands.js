@@ -113,7 +113,7 @@ function reportMatch(arg, msg, client) {
     } else {
         retMsg += "**" + p1Type.alias + "-" + p1Char.name + " " + arg[2] + " vs " + arg[5] + " " + p2Type.alias + "-" + p2Char.name + "**" + "\n";
     }
-    retMsg += "Digite !confirm para confirmar.";
+    retMsg += "Digite !confirm para confirmar ou !deny para recusar.";
 
     msg.reply(retMsg);
 
@@ -169,7 +169,9 @@ function confirm (arg, msg, client) {
                 discordID: confirmedResult[0].p1,
                 character: confirmedResult[0].p1Character,
                 type: confirmedResult[0].p1Type,
-                points: 0
+                points: 0,
+                wins: 0,
+                losses: 0
             })-1;
         }
         if(p2Index == -1) {
@@ -177,7 +179,9 @@ function confirm (arg, msg, client) {
                 discordID: confirmedResult[0].p2,
                 character: confirmedResult[0].p2Character,
                 type: confirmedResult[0].p2Type,
-                points: 0
+                points: 0,
+                wins: 0,
+                losses: 0
             })-1;
         }
 
@@ -205,11 +209,14 @@ function confirm (arg, msg, client) {
                 confirmedResult[0].p1Victory -= p1v;
                 confirmedResult[0].p2Victory -= p2v;
             }
-            if(p1v > p2v || p1v === p2v) {
+            if((p1v + confirmedResult[0].p1Victory) > (p2v + confirmedResult[0].p2Victory) || (p1v + confirmedResult[0].p1Victory) === (p2v + confirmedResult[0].p2Victory)) {
                 if(p1v > 0) {
                     let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, true, config.server[msg.guild.id].rankedCalculator);
                     ranking[p1Index].points = eloCalc.playerRating;
                     ranking[p2Index].points = eloCalc.opponentRating;
+                    
+                    ranking[p1Index].wins ++;
+                    ranking[p2Index].losses ++;
                     p1v -= 1;
 
                     console.log("Player 1 Ganhou");
@@ -217,6 +224,9 @@ function confirm (arg, msg, client) {
                     let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, false, config.server[msg.guild.id].rankedCalculator);
                     ranking[p1Index].points = eloCalc.playerRating;
                     ranking[p2Index].points = eloCalc.opponentRating;
+
+                    ranking[p1Index].losses ++;
+                    ranking[p2Index].wins ++;
                     p2v -= 1;
 
                     console.log("Player 2 Ganhou");
@@ -226,6 +236,9 @@ function confirm (arg, msg, client) {
                     let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, false, config.server[msg.guild.id].rankedCalculator);
                     ranking[p1Index].points = eloCalc.playerRating;
                     ranking[p2Index].points = eloCalc.opponentRating;
+
+                    ranking[p1Index].losses ++;
+                    ranking[p2Index].wins ++;
                     p2v -= 1;
 
                     console.log("Player 2 Ganhou");
@@ -233,6 +246,9 @@ function confirm (arg, msg, client) {
                     let eloCalc = EloRating.calculate(ranking[p1Index].points, ranking[p2Index].points, true, config.server[msg.guild.id].rankedCalculator);
                     ranking[p1Index].points = eloCalc.playerRating;
                     ranking[p2Index].points = eloCalc.opponentRating;
+
+                    ranking[p1Index].wins ++;
+                    ranking[p2Index].losses ++;
                     p1v -= 1;
 
                     console.log("Player 1 Ganhou");
@@ -265,9 +281,7 @@ function deny (arg, msg, client) {
     if(isSpam(msg)) return;
 
     if (index != -1) {
-        let confirmedResult = undefined;
-
-        confirmedResult = temp.splice(index, 1);
+        let confirmedResult = temp.splice(index, 1);
         clearTimeout(confirmedResult[0].id);
 
         msg.reply("Report cancelado.");
@@ -394,7 +408,7 @@ function myPoints(arg, msg, client) {
         }
 
         ranking.sort(function(a,b) {return (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0);} );
-        ranking.some(function (eloLine) {
+        ranking.forEach(function (eloLine) {
             let playerNick = '';
             playerNick = client.users.get(eloLine.discordID).username;
 
@@ -405,9 +419,10 @@ function myPoints(arg, msg, client) {
                     rankingString += character[game].type.find((element) => { return element.alias === eloLine.type}).alias + "-";
                 }
                 rankingString += character[game].character.find((element) => { return element.alias === eloLine.character}).name  + " (" + eloLine.points + ")\n";
+                rankingString += "Overall wins: " + Math.round(((eloLine.wins/(eloLine.wins+eloLine.losses))*100)).toString() + "% (" + "wins: " + eloLine.wins + ", losses: " + eloLine.losses + ")\n\n";
             }
+
             rankPosition++;
-            return false;
         });
 
         if(rankingString.length > 0) {
@@ -443,7 +458,7 @@ function help(arg, msg, client) {
         "Usado para mostrar os primeiros 50 players/personagens do rank geral\n" +
         "\n" +
         "**!myPoints(-pvt)**\n" +
-        "Usado para mostrar os seus pontos e a sua colocação do rank geral\n" +
+        "Usado para mostrar os seus pontos, vitórias, derrotas e a sua colocação no rank geral\n" +
         "\n" +
         "Obs: os comandos que possuem (-pvt), podem ser adicionados no final comandos (antes dos argumentos), para a mensagem ser enviada por private message, exemplo: !mypoints-pvt";
 
