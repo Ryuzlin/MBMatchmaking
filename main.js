@@ -31,6 +31,8 @@ client.on('message', msg => {
 		commands.reportMatch(arg, msg, client);
 	} else if (arg[0].startsWith(config.prefix + 'confirm')) {
 		commands.confirm(arg, msg, client);
+	} else if (arg[0].startsWith(config.prefix + 'deny')) {
+		commands.deny(arg, msg, client);
 	} else if (arg[0].startsWith(config.prefix + 'ranking')) {
 		commands.ranking(arg, msg, client);
 	} else if (arg[0].startsWith(config.prefix + 'findchar')) {

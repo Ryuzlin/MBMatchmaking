@@ -13,6 +13,7 @@ module.exports = {
 
     reportMatch: reportMatch,
     confirm: confirm,
+    deny: deny,
     findChar: findChar,
     ranking: ranking,
     myPoints: myPoints,
@@ -257,6 +258,27 @@ function confirm (arg, msg, client) {
     msg.reply("Resultado confirmado.");
 }
 
+
+function deny (arg, msg, client) {
+    let index = (temp.map((arr) => arr.p2)).indexOf(msg.author.id);
+
+    if(isSpam(msg)) return;
+
+    if (index != -1) {
+        let confirmedResult = undefined;
+
+        confirmedResult = temp.splice(index, 1);
+        clearTimeout(confirmedResult[0].id);
+
+        msg.reply("Report cancelado.");
+    } 
+    else {
+        msg.reply("Report não encontrado.");
+        return;
+    }
+}
+
+
 function findChar(arg, msg, client) {
     let charFound = '';
     let game = config.server[msg.guild.id].game;
@@ -410,6 +432,9 @@ function help(arg, msg, client) {
         "\n" +
         "**!confirm**\n" +
         "Usado para confirmar o resultado da partida (!report para você)\n" +
+        "\n" +
+        "**!deny**\n" +
+        "Usado para negar o resultado da partida (!report para você)\n" +
         "\n" +
         "**!findChar(-pvt) [personagem(opcional)]**\n" +
         "Usado para encontrar a sigla de 2 digitos do seu personagem\n" +
