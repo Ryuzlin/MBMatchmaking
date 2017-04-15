@@ -37,7 +37,7 @@ client.on('message', msg => {
 		commands.findChar(arg, msg, client);
 	} else if (arg[0].startsWith(config.prefix + 'mypoints')) {
 		commands.myPoints(arg, msg, client);
-	} else if (arg[0].startsWith(config.prefix + 'help' || arg[0] === config.prefix + 'commands')) {
+	} else if (arg[0].startsWith(config.prefix + 'help') || arg[0].startsWith(config.prefix + 'commands')) {
 		commands.help(arg, msg, client);
 	} else if (arg[0].startsWith(config.prefix + 'showtemp')) {
 		adminCommands.showTemp(arg, msg, client);
