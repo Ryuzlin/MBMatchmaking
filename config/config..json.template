@@ -1,0 +1,14 @@
+{
+    "loginKey":"YourBotKeyHere",
+    "prefix":"!",
+    "ownerID":123, //your discordID here
+    "confirmTimeout":20000,
+    "spamTimeout":5000,
+    "server":
+    {
+        "123": //your ServerID here
+        {
+            "game":"StreetFighterV",
+            "rankedCalculator":30
+        }
+}
